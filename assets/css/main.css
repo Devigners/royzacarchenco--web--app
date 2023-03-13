@@ -73,6 +73,9 @@ h4 {
   align-items: center;
   flex-direction: column;
 }
+.bg-gradient {
+  background: linear-gradient(140.71deg, #121574 42.27%, #ed5b0c 100%);
+}
 
 .login-outer-bg {
   background: linear-gradient(140.71deg, #121574 42.27%, #ed5b0c 100%);
@@ -133,7 +136,7 @@ input {
 
 /* font weight for placeholder */
 input::-webkit-input-placeholder {
-  font-weight: 800;
+  font-weight: 700;
   color: #cfcfcf;
 }
 

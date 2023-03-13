@@ -4,64 +4,69 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Home</title>
     <link rel="stylesheet" href="./assets/css/main.css" />
-    <link rel="stylesheet" href="./assets/css/main.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <div class="container">
-      <div class="outer">
-        <div class="inner-home">
-          <img src="./assets/images/logo/logo.png" alt="logo" class="logo" />
-          <div class="login-outer-bg mt-5">
-            <div class="login-inner-bg">
-              <div class="login-outer">
-                <div class="login-inner">
-                  <h1 class="text-dark">BEM VINDO</h1>
-                  <label class="uppercase label-font text-light"
-                    >entre com seus dados</label
-                  >
-                  <form>
-                    <div class="position-relative mt-2">
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        class="input-box-shadow"
-                        placeholder="Email"
-                      />
-                      <img
-                        src="./assets/images/icons/user.png"
-                        alt="user"
-                        class="icon"
-                      />
-                    </div>
-                    <div class="position-relative mt-2">
-                      <input
-                        type="password"
-                        name="email"
-                        id="email"
-                        class="input-box-shadow"
-                        placeholder="Password"
-                      />
-                      <img
-                        src="./assets/images/icons/lock.png"
-                        alt="user"
-                        class="icon"
-                      />
-                    </div>
-                    <div
-                      class="display-flex justify-content-center align-items-center mt-5"
-                    >
-                      <a class="button-primary" href="./botscreen.html"
-                        >ENTRAR</a
-                      >
-                    </div>
-                  </form>
+      <div>
+        <div class="flex justify-center mt-5">
+          <a href="./index.html">
+            <img src="./assets/images/logo/logo.png" alt="logo" class="logo" />
+          </a>
+        </div>
+
+        <div
+          class="grid gap-5 grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 mt-16"
+        >
+          <div></div>
+          <div>
+            <div>
+              <div
+                class="bg-gradient pt-10 pb-16 px-5 rounded-[50px] text-center"
+              >
+                <h1 class="font-bold text-2xl">BEM VINDO</h1>
+                <h5 class="uppercase font-bold text-[16px] text-light">
+                  entre com seus dados
+                </h5>
+                <div class="position-relative mt-5">
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="input-box-shadow"
+                    placeholder="Email"
+                  />
+                  <img
+                    src="./assets/images/icons/user.png"
+                    alt="user"
+                    class="icon"
+                  />
+                </div>
+                <div class="position-relative mt-2">
+                  <input
+                    type="password"
+                    name="email"
+                    id="email"
+                    class="input-box-shadow"
+                    placeholder="Password"
+                  />
+                  <img
+                    src="./assets/images/icons/lock.png"
+                    alt="user"
+                    class="icon"
+                  />
+                </div>
+                <div
+                  class="display-flex justify-content-center align-items-center mt-5"
+                >
+                  <a class="button-primary" href="./botscreen.html">ENTRAR</a>
                 </div>
               </div>
             </div>
           </div>
+          <div></div>
         </div>
       </div>
     </div>
