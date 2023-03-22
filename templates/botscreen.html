@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bot Screen</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
+          <div></div>
+          <div class="mt-5">
+            <div class="flex justify-center">
+              <a href="./index.html">
+                <img
+                  src="./assets/images/logo/logo.png"
+                  alt="logo"
+                  class="logo"
+                />
+              </a>
+            </div>
+
+            <div>
+              <div
+                class="h-full bg-white rounded-2xl p-10 mt-10 flex flex-col items-center gap-2 justify-center"
+              >
+                <a class="button-primary uppercase" href={{ url_for("botscreen", user_id=id) }}
+                  >gerando sinal</a
+                >
+                <div
+                  class="bg-[{{output_color}}] h-10 w-10 flex justify-center items-center text-white rounded-md icon-box-shadow"
+                >
+                  <p>O</p>
+                </div>
+              </div>
+
+              <div class="h-full bg-white rounded-2xl p-10 mt-10 mb-10">
+                <h2 class="text-[#929292] uppercase font-bold text-center">
+                  ultimos resultados
+                </h2>
+
+                {% for row_count in range(1, ((((numbers |length)|int)+1)/5)|int + 1) | list %}
+                  <div
+                    class="grid gap-5 grid-cols-5 md:grid-cols-5 lg:grid-cols-5 mt-5"
+                  >
+                  {% for number in numbers[5*(row_count-1):5*row_count] %}
+                    <div
+                      class="bg-[{{number.color}}] h-10 w-10 flex justify-center items-center text-white rounded-md icon-box-shadow"
+                    >
+                      <p style="color:{{number.text_color}}">{{ number.num }}</p>
+                    </div>
+                  {% endfor %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

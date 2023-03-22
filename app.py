@@ -1,3 +1,4 @@
+from flask import Flask, request, render_template, url_for, redirect
 import random
 import pyrebase
 import requests
@@ -18,46 +19,89 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 
-def login():
-  while True:
-    print("Coloque seus dados de compra!")
-    email = input("Email: ")
-    password = input("Senha: ")
+# flask app initializer
+app = Flask(__name__)
 
-    try:
-      user = auth.sign_in_with_email_and_password(email, password)
-      print("Logado com sucesso!")
-      break
-    except:
-      print("Email ou senha inválidos, tente novamente")
+def login(email, password):
+  print("Coloque seus dados de compra!")
 
+  try:
+    user = auth.sign_in_with_email_and_password(email, password)
+    print("Logado com sucesso!")
+  except:
+    print("Email ou senha inválidos, tente novamente")
+    return False
   return user['idToken']
 
-def gerar_sinal(numero_sorteado):
-  print("Gerando sinal...")
-  cor = random.choice(["vermelho", "preto"])
-  print(f"Cor: {cor}")
-  
-  print(f"Novo número sorteado: {numero_sorteado}")
-  # sua lógica para indicar uma entrada
-  # ...
-
-  return cor
-
-lista_de_numeros_anterior = []
-token = login()
-
-while True:
-  headers = {"Authorization": f"Bearer {token}"}
+def generate_colored_numbers(user_id):
+  headers = {"Authorization": f"Bearer {user_id}"}
   pegar_dados = requests.get('https://blaze.com/api/roulette_games/recent', headers=headers)
   resultado = json.loads(pegar_dados.content)
   lista_de_numeros = [x['roll'] for x in resultado]
-  print(lista_de_numeros)
-  
-  if lista_de_numeros != lista_de_numeros_anterior:
-    ultimo_numero = lista_de_numeros[-1]
-    gerar_sinal(ultimo_numero)
+  colored_numbers = []
+  for number in lista_de_numeros:
+    if number == 0:
+      color = "#ffffff"
+      text_color = '#000000'
+    elif (number > 0 and number < 8):
+      color = '#F22C4D'
+      text_color = '#ffffff'
+    else:
+      color = '#000000'
+      text_color = '#ffffff'
     
-  lista_de_numeros_anterior = lista_de_numeros
+    colored_numbers.append({'num': number, "color": color, "text_color": text_color})
+    
+  return colored_numbers
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route('/signin', methods=['POST'])
+def signin():
+  email = request.form['email']
+  password = request.form['password']
   
-  time.sleep(5)
+  if(login(email, password)):
+    return redirect(url_for('botscreen', user_id=login(email, password)))
+  else:
+    return render_template("index.html")
+
+
+@app.route("/botscreen/<user_id>")
+def botscreen(user_id):
+  cor = random.choice(["#F22C4D", "#000000"])
+  return render_template("botscreen.html", output_color=cor, id=user_id, generate_colored_numbers=generate_colored_numbers, numbers=generate_colored_numbers(user_id))
+
+  
+if __name__ == '__main__':
+	app.run(debug=True)
+
+
+# def gerar_sinal(numero_sorteado):
+#   print("Gerando sinal...")
+
+  
+#   print(f"Novo número sorteado: {numero_sorteado}")
+#   return cor
+
+# lista_de_numeros_anterior = []
+# token = login()
+
+# while True:
+#   headers = {"Authorization": f"Bearer {token}"}
+#   pegar_dados = requests.get('https://blaze.com/api/roulette_games/recent', headers=headers)
+#   resultado = json.loads(pegar_dados.content)
+#   lista_de_numeros = [x['roll'] for x in resultado]
+#   print(lista_de_numeros)
+  
+#   if lista_de_numeros != lista_de_numeros_anterior:
+#     ultimo_numero = lista_de_numeros[-1]
+#     gerar_sinal(ultimo_numero)
+    
+#   lista_de_numeros_anterior = lista_de_numeros
+  
+#   time.sleep(5)
