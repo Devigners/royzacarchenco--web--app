@@ -89,12 +89,6 @@ def get_numbers():
   else:
     return jsonify({'data': None, 'color': None})
 
-@app.route('/get_numbers')
-def get_numbers():
-  numbers = generate_colored_numbers() # Assuming func1 returns a list of dicts with 'num', 'color', and 'text_color' keys
-  return jsonify(numbers)
-
-
 @app.route("/botscreen/<user_id>")
 def botscreen(user_id):
   global logged_in_user_id
