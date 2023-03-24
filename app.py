@@ -22,6 +22,8 @@ auth = firebase.auth()
 # flask app initializer
 app = Flask(__name__)
 logged_in_user_id = ''
+current_color = None
+current_data = None
 
 def login(email, password):
   print("Coloque seus dados de compra!")
@@ -53,7 +55,7 @@ def generate_colored_numbers():
       text_color = '#ffffff'
     
     colored_numbers.append({'num': number, "color": color, "text_color": text_color})
-    
+  
   return colored_numbers
 
 
@@ -71,6 +73,21 @@ def signin():
     return redirect(url_for('botscreen', user_id=login(email, password)))
   else:
     return render_template("index.html")
+  
+  
+@app.route('/get_numbers')
+def get_numbers():
+  global current_data, current_color
+  
+  cor = random.choice(["#F22C4D", "#000000"])
+  
+  numbers = generate_colored_numbers()
+  if(numbers != current_data):
+    current_data = numbers
+    current_color = cor
+    return jsonify({'data':numbers, 'color':cor})
+  else:
+    return jsonify({'data': None, 'color': None})
 
 @app.route('/get_numbers')
 def get_numbers():
