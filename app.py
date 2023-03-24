@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, url_for, redirect
+from flask import Flask, request, render_template, url_for, redirect, jsonify
 import random
 import pyrebase
 import requests
@@ -21,6 +21,7 @@ auth = firebase.auth()
 
 # flask app initializer
 app = Flask(__name__)
+logged_in_user_id = ''
 
 def login(email, password):
   print("Coloque seus dados de compra!")
@@ -33,8 +34,9 @@ def login(email, password):
     return False
   return user['idToken']
 
-def generate_colored_numbers(user_id):
-  headers = {"Authorization": f"Bearer {user_id}"}
+def generate_colored_numbers():
+  global logged_in_user_id
+  headers = {"Authorization": f"Bearer {logged_in_user_id}"}
   pegar_dados = requests.get('https://blaze.com/api/roulette_games/recent', headers=headers)
   resultado = json.loads(pegar_dados.content)
   lista_de_numeros = [x['roll'] for x in resultado]
@@ -70,11 +72,19 @@ def signin():
   else:
     return render_template("index.html")
 
+@app.route('/get_numbers')
+def get_numbers():
+  numbers = generate_colored_numbers() # Assuming func1 returns a list of dicts with 'num', 'color', and 'text_color' keys
+  return jsonify(numbers)
+
 
 @app.route("/botscreen/<user_id>")
 def botscreen(user_id):
+  global logged_in_user_id
+  logged_in_user_id = user_id
+  
   cor = random.choice(["#F22C4D", "#000000"])
-  return render_template("botscreen.html", output_color=cor, id=user_id, generate_colored_numbers=generate_colored_numbers, numbers=generate_colored_numbers(user_id))
+  return render_template("botscreen.html", output_color=cor, id=user_id, generate_colored_numbers=generate_colored_numbers, numbers=generate_colored_numbers())
 
   
 if __name__ == '__main__':
