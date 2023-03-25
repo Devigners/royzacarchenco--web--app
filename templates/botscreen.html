@@ -12,28 +12,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <div class="container">
+    <div class="container px-6">
       <div>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3">
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3">
           <div></div>
           <div class="mt-5">
             <div class="flex justify-center">
               <a href="./index.html">
                 <img
-                  src="./assets/images/logo/logo.png"
+                  src="{{ url_for('static', filename='images/logo/logo.png') }}"
                   alt="logo"
                   class="logo"
                 />
               </a>
             </div>
 
-            <div>
+            <div class="pr-3 max-w-[400px] m-auto">
               <div
-                class="h-full bg-white rounded-2xl p-10 mt-10 flex flex-col items-center gap-2 justify-center"
-              >
-                <a class="button-primary uppercase" href={{ url_for("botscreen", user_id=id) }}
-                  >gerando sinal</a
-                >
+                class="h-full bg-white rounded-2xl p-5 md:p-10 mt-10 flex flex-col items-center gap-2 justify-center relative">
+                <div class="gradient rounded-2xl"></div>
                 <div
                   id="main-number"
                   class="bg-[{{output_color}}] h-10 w-10 flex justify-center items-center text-white rounded-md icon-box-shadow"
@@ -42,7 +39,8 @@
                 </div>
               </div>
 
-              <div class="h-full bg-white rounded-2xl p-10 mt-10 mb-10">
+              <div class="h-full bg-white rounded-2xl p-5 md:p-10 mt-10 mb-10 relative">
+                <div class="gradient rounded-2xl"></div>
                 <h2 class="text-[#929292] uppercase font-bold text-center">
                   ultimos resultados
                 </h2>
@@ -54,7 +52,7 @@
                 {% for row_count in range(1, ((((numbers |length)|int)+1)/5)|int + 1) | list %}
                   {% for number in numbers[5*(row_count-1):5*row_count] %}
                     <div
-                      class="bg-[{{number.color}}] h-10 w-10 flex justify-center items-center text-white rounded-md icon-box-shadow"
+                      class="bg-[{{number.color}}] h-10 w-10 flex justify-center items-center text-white rounded-md icon-box-shadow m-auto"
                     >
                       <p style="color:{{number.text_color}}">{{ number.num }}</p>
                     </div>
@@ -79,7 +77,11 @@
           success: function (res) {
             if(!res.data) return;
             let html = "";
-            $("#main-number").css('background-color', res.color);
+            $("#main-number").fadeOut("slow", function () {
+              $("#main-number").css('background-color', res.color);
+            });
+            $("#main-number").fadeIn();
+
             res.data.map(function (item) {
               html += `<div
                         style="background-color: ${item.color}"

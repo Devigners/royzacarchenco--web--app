@@ -10,12 +10,15 @@ body {
 .position-relative {
   position: relative;
 }
+
 .display-flex {
   display: flex;
 }
+
 .justify-content-center {
   justify-content: center;
 }
+
 .align-items-center {
   align-items: center;
 }
@@ -55,6 +58,7 @@ h4 {
 .text-light {
   color: #ffffff;
 }
+
 .outer {
   width: 100%;
   height: 100vh;
@@ -73,6 +77,7 @@ h4 {
   align-items: center;
   flex-direction: column;
 }
+
 .bg-gradient {
   background: linear-gradient(140.71deg, #121574 42.27%, #ed5b0c 100%);
 }
@@ -87,6 +92,7 @@ h4 {
   display: flex;
   justify-content: center;
 }
+
 .login-inner-bg {
   background: rgba(255, 255, 255, 0.12);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -105,6 +111,7 @@ h4 {
   height: 100%;
   display: flex;
 }
+
 .login-inner {
   width: 100%;
   text-align: center;
@@ -126,6 +133,7 @@ input {
 .icon-box-shadow {
   box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
 }
+
 .icon {
   position: absolute;
   top: 49%;
@@ -142,12 +150,10 @@ input::-webkit-input-placeholder {
 
 .button-primary {
   border-radius: 50px;
-  background: linear-gradient(
-    98.26deg,
-    #00c2ff 9.73%,
-    #ff5900 45.73%,
-    #e91ea1 93.41%
-  );
+  background: linear-gradient(98.26deg,
+      #00c2ff 9.73%,
+      #ff5900 45.73%,
+      #e91ea1 93.41%);
   height: 85px;
   width: 232px;
   text-decoration: none;
@@ -158,4 +164,23 @@ input::-webkit-input-placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.gradient {
+  width: 100%;
+  height: 100%;
+  bottom: -10px;
+  right: -10px;
+  background: linear-gradient(140.71deg, #121574 42.27%, #ED5B0C 100%);
+  position: absolute;
+  z-index: -1;
+}
+
+.gradient.sm {
+  bottom: -5px;
+  right: -5px;
+}
+
+.container {
+  margin: 0 auto;
 }
