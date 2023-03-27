@@ -79,7 +79,7 @@ def signin():
 def get_numbers():
   global current_data, current_color
   
-  cor = random.choice([url_for('static', filename='images/logo/circle-red-image.png'), url_for('static', filename='images/logo/circle-dark-image.png')])
+  cor = random.choice([url_for('static', filename='images/circle-red-image.png'), url_for('static', filename='images/circle-dark-image.png')])
   
   numbers = generate_colored_numbers()
   if(numbers != current_data):
@@ -94,7 +94,7 @@ def botscreen(user_id):
   global logged_in_user_id
   logged_in_user_id = user_id
   
-  rand_image = random.choice([url_for('static', filename='images/logo/circle-red-image.png'), url_for('static', filename='images/logo/circle-dark-image.png')])
+  rand_image = random.choice([url_for('static', filename='images/circle-red-image.png'), url_for('static', filename='images/circle-dark-image.png')])
   return render_template("botscreen.html", random_image=rand_image, id=user_id, generate_colored_numbers=generate_colored_numbers, numbers=generate_colored_numbers())
 
   
