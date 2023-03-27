@@ -18,7 +18,7 @@
           <div></div>
           <div class="mt-5">
             <div class="flex justify-center">
-              <a href="./index.html">
+              <a href="">
                 <img
                   src="{{ url_for('static', filename='images/logo/logo.png') }}"
                   alt="logo"
@@ -33,9 +33,10 @@
                 <div class="gradient rounded-2xl"></div>
                 <div
                   id="main-number"
-                  class="bg-[{{output_color}}] h-10 w-10 flex justify-center items-center text-white rounded-md icon-box-shadow"
+                  style="border-radius: 20px"
+                  class="h-16 w-16 flex justify-center items-center text-white icon-box-shadow"
                 >
-                  <p>O</p>
+                <img height="100%" width="100%" src="{{ url_for('static', filename='images/circle-dark-image.png') }}" />
                 </div>
               </div>
 
@@ -54,7 +55,12 @@
                     <div
                       class="bg-[{{number.color}}] h-10 w-10 flex justify-center items-center text-white rounded-md icon-box-shadow m-auto"
                     >
-                      <p style="color:{{number.text_color}}">{{ number.num }}</p>
+                      {% if number.num == 0 %}
+                        <img height="20px" width="20px" src="{{ url_for('static', filename='images/logo-blaze.png') }}" />
+                      {% endif %}
+                      {% if number.num != 0 %}
+                        <p style="color:{{number.text_color}}">{{ number.num }}</p>
+                      {% endif %}
                     </div>
                   {% endfor %}
                   {% endfor %}
@@ -69,6 +75,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
+
+      const blazeImageUrl = "{{ url_for('static', filename='images/logo-blaze.png') }}";
       
       function refreshNumbers (){
         $.ajax({
@@ -78,7 +86,7 @@
             if(!res.data) return;
             let html = "";
             $("#main-number").fadeOut("slow", function () {
-              $("#main-number").css('background-color', res.color);
+              // $("#main-number")
             });
             $("#main-number").fadeIn();
 
@@ -87,7 +95,7 @@
                         style="background-color: ${item.color}"
                         class="h-10 w-10 flex justify-center items-center text-white rounded-md icon-box-shadow"
                       >
-                        <p style="color: ${item.text_color}">${item.num}</p>
+                        ${item.num === 0 ? `<img height="20px" width="20px" src="${blazeImageUrl}" />` : `<p style="color: ${item.text_color}">${item.num}</p>`}
                       </div>`;
             })
             $("#number-array").html(html);

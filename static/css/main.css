@@ -1,7 +1,12 @@
+@font-face {
+  font-family: "Katahdin-Round";
+  src: url('./../fonts/Katahdin-Round.otf');
+}
+
 body {
   margin: 0 auto;
   padding: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Katahdin-Round";
   font-size: 16px;
   line-height: 1.5;
   background: #000000;
@@ -142,6 +147,11 @@ input {
   width: 15px;
 }
 
+.logo {
+  width: 120px;
+  height: 120px;
+}
+
 /* font weight for placeholder */
 input::-webkit-input-placeholder {
   font-weight: 700;
@@ -150,10 +160,7 @@ input::-webkit-input-placeholder {
 
 .button-primary {
   border-radius: 50px;
-  background: linear-gradient(98.26deg,
-      #00c2ff 9.73%,
-      #ff5900 45.73%,
-      #e91ea1 93.41%);
+  background: linear-gradient(98.26deg, #00C2FF 9.73%, #FF5900 45.73%, #E91EA1 93.41%) !important;
   height: 85px;
   width: 232px;
   text-decoration: none;
