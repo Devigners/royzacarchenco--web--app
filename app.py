@@ -94,8 +94,8 @@ def botscreen(user_id):
   global logged_in_user_id
   logged_in_user_id = user_id
   
-  cor = random.choice(["#F22C4D", "#000000"])
-  return render_template("botscreen.html", output_color=cor, id=user_id, generate_colored_numbers=generate_colored_numbers, numbers=generate_colored_numbers())
+  rand_image = random.choice([url_for('static', filename='images/logo/circle-red-image.png'), url_for('static', filename='images/logo/circle-dark-image.png')])
+  return render_template("botscreen.html", random_image=rand_image, id=user_id, generate_colored_numbers=generate_colored_numbers, numbers=generate_colored_numbers())
 
   
 if __name__ == '__main__':
