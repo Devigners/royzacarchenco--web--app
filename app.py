@@ -79,7 +79,7 @@ def signin():
 def get_numbers():
   global current_data, current_color
   
-  cor = random.choice(["#F22C4D", "#000000"])
+  cor = random.choice([url_for('static', filename='images/logo/circle-red-image.png'), url_for('static', filename='images/logo/circle-dark-image.png')])
   
   numbers = generate_colored_numbers()
   if(numbers != current_data):
